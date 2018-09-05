@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package locservice;
+
+service Loc {
+	rpc UserOnline(OnlinePing) returns (OnlineResponse) {}
+    rpc Broadcast(stream AudioBuffer) returns (Listeners) {}
+    rpc UserOffline(OfflinePing) returns (OfflineResponse) {}
+    rpc Listen(Listener) returns (stream AudioBuffer) {}
+}
+
+message AudioBuffer {
+    string name = 1;
+}
+
+message Listeners {
+    int64 numberOfListeners = 1;
+}
+
+message Listener {
+    string userID = 1;
+}
+
+message OnlinePing {
+    string userID = 1;
+}
+
+message OnlineResponse {
+    bool wasRecieved = 1;
+}
+
+message OfflinePing {
+    string userID = 1;
+}
+
+message OfflineResponse {
+    bool wasRecieved = 1;
+}
